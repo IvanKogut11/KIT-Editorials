@@ -2,56 +2,86 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-const int INT_INF = (int)2e8 + 300;
+
+typedef long double ld;
+
+// Definition of constants from statement
+const int MAX_METRE = (int)42195;
+const int MAX_USER_NUMBER = (int)1e5;
+
+int fenwick_tree[MAX_METRE + 1];
+
+// Fenwick tree add operation
+void add(int index, int x) {
+    for (; index <= MAX_METRE; index = (index | (index + 1))) {
+        fenwick_tree[index] += x;
+    }
+}
+
+// Fenwick tree get prefix sum operation
+int get_prefix_sum(int r) {
+    int result = 0;
+    for (; r >= 0; r = (r & (r + 1)) - 1) {
+        result += fenwick_tree[r];
+    }
+
+    return result;
+}
+
 
 void solve() {
-    // Read input
-    int n;
-    cin >> n;
-    vector<pair<int, int>> points(n);
-    for (int i = 0; i < n; ++i) {
-        cin >> points[i].first >> points[i].second;
+    int Q;
+    cin >> Q;
 
-        // Modify coordinates to work with integers
-        points[i].first *= 2;
-        points[i].second *= 2;
-    }
+    // To save user's current page to use then in operations
+    vector<int> current_user_page(MAX_USER_NUMBER + 1, -1);
 
-    // Find min and max x coordinate
-    int min_x = INT_INF, max_x = -INT_INF;
-    for (const auto& point : points) {
-        min_x = min(min_x, point.first);
-        max_x = max(max_x, point.first);
-    }
+    int all_users_cnt = 0;
 
-    // Calculate axis of symmetry
-    int x_sym = (max_x + min_x) / 2;
+    for (int i = 0; i < Q; ++i) {
+        string s;
+        cin >> s;
+        if (s == "RUN") {
+            // RUN operation
 
-    // Check every point for having reflected point
-    map<pair<int, int>, int> points_balance;
-    for (auto point : points) {
-        if (point.first > x_sym) {
-            --points_balance[{2 * x_sym - point.first, point.second}];
+            int user, page;
+            cin >> user >> page;
+            if (current_user_page[user] != -1) {
+                add(current_user_page[user], -1);
+            } else {
+                ++all_users_cnt;
+            }
+
+            current_user_page[user] = page;
+            add(current_user_page[user], 1);
         } else {
-            ++points_balance[point];
+            // CHEER operation
+            int user;
+            cin >> user;
+
+            if (current_user_page[user] == -1) {
+                cout << 0 << "\n";
+                continue;
+            }
+
+            if (all_users_cnt == 1) {
+                cout << 1 << "\n";
+                continue;
+            }
+
+            int users_before_cnt = get_prefix_sum(current_user_page[user] - 1);
+            cout << (ld)users_before_cnt / ((ld)all_users_cnt - 1.) << "\n";
         }
     }
-
-    for (const auto& [point, point_balance] : points_balance) {
-        if (point_balance != 0) {
-            cout << "NO";
-            return;
-        }
-    }
-
-    cout << "YES";
 }
 
 int main()
 {
     ios_base::sync_with_stdio(false);
     cin.tie(0);
+    cout << fixed << setprecision(6);
     solve();
     return 0;
 }
+
 
