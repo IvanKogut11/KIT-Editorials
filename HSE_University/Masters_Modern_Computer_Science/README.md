@@ -1,4 +1,5 @@
-Видеоразбор: https://youtu.be/tId5B79VLss
+# Видеоразбор: https://youtu.be/tId5B79VLss
+[![IMAGE ALT TEXT HERE](https://github.com/IvanKogut11/KIT-Editorials/blob/main/HSE_University/Masters_Modern_Computer_Science/youtube_logo.jpg)](https://www.youtube.com/watch?v=tId5B79VLss)
 
 # Условие 1 задачи
 ![](https://github.com/IvanKogut11/KIT-Editorials/blob/main/HSE_University/Masters_Modern_Computer_Science/1_problem.png)
