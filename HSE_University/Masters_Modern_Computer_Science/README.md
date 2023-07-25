@@ -1,3 +1,5 @@
+Видеоразбор: https://youtu.be/tId5B79VLss
+
 # Условие 1 задачи
 ![](https://github.com/IvanKogut11/KIT-Editorials/blob/main/HSE_University/Masters_Modern_Computer_Science/1_problem.png)
 
