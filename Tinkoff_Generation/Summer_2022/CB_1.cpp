@@ -24,17 +24,15 @@ void solve() {
     set<int> used;
     for (int i = n - 1; i >= 0; --i) {
         if (a[i] == 1) {
-            pos_1 = i;
-            break;
+            cout << i;
+            return;
         }
         if (!used.empty() && *used.begin() < a[i]) {
-            pos = i;
-            break;
+            cout << i + 1;
+            return;
         }
         used.insert(a[i]);
     }
-
-    cout << max(pos + 1, pos_1);
 }
 
 void multitest() {
@@ -61,4 +59,3 @@ int main()
 #endif
     return 0;
 }
-
