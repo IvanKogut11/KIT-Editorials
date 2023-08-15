@@ -33,18 +33,21 @@ void solve() {
         string t = s;
         for (int cur_ans = 0; cur_ans < n; ++cur_ans) {
             bool not_i = false;
-            for (int j = 0; j + 1 < t.size(); ++j) {
-                if ((t[j] - 'a') != i) {
+            for (auto c : t) {
+                if ((c - 'a') != i) {
                     not_i = true;
-                    if ((t[j + 1] - 'a') == i) {
-                        t[j] = 'a' + i;
-                    }
+                    break;
                 }
             }
-            not_i |= (t.back() != ('a' + i));
             if (!not_i) {
                 best_ans = min(best_ans, cur_ans);
                 break;
+            }
+            
+            for (int j = 0; j + 1 < t.size(); ++j) {
+                if ((t[j] - 'a') != i && (t[j + 1] - 'a') == i) {
+                    t[j] = 'a' + i;
+                }
             }
             t.pop_back();
         }
