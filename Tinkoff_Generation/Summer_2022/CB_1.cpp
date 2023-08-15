@@ -20,7 +20,6 @@ void solve() {
         cin >> a[i];
     }
 
-    int pos = -1, pos_1 = -1;
     set<int> used;
     for (int i = n - 1; i >= 0; --i) {
         if (a[i] == 1) {
